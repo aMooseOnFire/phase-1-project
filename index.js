@@ -17,9 +17,41 @@ let mediumOfArt = [];
 let placesOfOrigin = [];
 let categoryTags = [];
 
-//Image load API
-function loadImageInfo () {
-    fetch('https://api.artic.edu/api/v1/artworks')
+//fetch v2 
+
+function loadImageInfoVF () {
+    fetch("https://api.artic.edu/api/v1/artworks")
+    .then((resp) => resp.json())
+    .then(data => {
+        const artworks = data.data;
+
+        artworks.forEach(artwork => {
+            const image = document.createElement("img");
+            const title = document.createElement("p");
+            const artist = document.createElement("p");
+            const container = document.createElement("div");
+
+        image.src = artwork.attributes.primary_image_url;
+
+        title.textContent = artwork.attributes.title;
+        artist.textContent = artwork.attributes.artist_credit;
+
+        container.appendChild(image);
+        container.appendChild(title);
+        container.appendChild(artist);
+
+        document.getElementById("artwork-gallery").appendChild(container);    
+
+        })
+    })
+    .catch(error => console.error(error));
+}
+
+loadImageInfoVF();
+
+// Image load API
+//function loadImageInfo () {
+    fetch("https://api.artic.edu/api/v1/artworks")
     .then((resp) => resp.json())
     .then((json) => {
     for (let i = 0; i < json.data.length; ++i) {
@@ -50,19 +82,21 @@ function loadImageInfo () {
 
     })
   };
-loadImageInfo();
+//loadImageInfo();
 
  //function to grab info from arrays above and put into list
  function createTitleElement () {
     for (let i=0; i <pieceTitles.length; i++){
-        console.log(i)
-        let ul = document.getElementById("art-image-list");
-        let li = document.createElement('li');
-        ul.appendChild(li);
-        li.innerHTML=li.innerHTML + array[i];
+        listHTML += "<li>" + pieceTitles[i] + "</li>";
+        //console.log(i)
+        //let ul = document.getElementById("art-image-list");
+        //let li = document.createElement('li');
+        //ul.appendChild(li);
+        //li.innerHTML=li.innerHTML + array[i];
         }
     }
- createTitleElement();
+ //const listHTML = document.getElementById("art-image-list")
+ //createTitleElement();
 
  //Create the list of items
  // const imageList = document.getElementById("art-image-list");
