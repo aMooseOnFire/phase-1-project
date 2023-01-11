@@ -43,33 +43,41 @@ function loadImages () {
         categoryTags.push(json.data[i].category_titles)
     }
 
-    for (let i = 0; i < json.data.length; ++i) {
-        let element = json.data[i];
-        console.log(json.pagination[i].current_page)
-    }
+    console.log(json.pagination.current_page)
 
-    const imageList = document.getElementById("art-image-list");
-    let artImg = document.createElement("li");
-    imageList.appendChild(artImg);
     })
   };
 
- function addInfo () {
-    //This function will take the data from the API call above and add it to image cards
-    
+  //This function will take the data from the API call above and add it to image cards
+  function addInfo () {
+    pieceTitles.forEach(function(element) {
+        console.log()
+    })
+ }
+ 
+ function createTitleElement () {
+    let ul = document.getElementById("art-image-list");
+    pieceTitles.forEach(function(element) {
+        let ul = document.getElementById("art-image-list");
+        let bullet = document.createElement("li")
+        ul.appendChild(bullet)
+    })
  }
 
+ //Create the list of items
+ const imageList = document.getElementById("art-image-list");
+    let artImg = document.createElement("li");
+    imageList.appendChild(artImg);
 
 //Going to use pageOptions to display in Dropdown to user
 const pageOptions = Math.random() * 9914 | 0;
+
 //Need to create the dropdown and add Event Listener
 document.getElementById("select1").addEventListener("change", function() { 
     console.log(this.value); 
   })
 
 //Allow user to search API based on terms
-
-
 
 
 //Search the API functionality for terms/tags: https://api.artic.edu/api/v1/artworks/search?q=cats
