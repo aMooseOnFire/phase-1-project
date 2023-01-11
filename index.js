@@ -1,13 +1,15 @@
-document.addEventListener("DOMContentLoaded", loadImages())
+//document.addEventListener("DOMContentLoaded", loadImages())
 
 //use this to get a random page (not ID)
 const myRandomNumber = Math.random() * 1000 | 0;
 
+//Base API URL
 const baseURL = "https://api.artic.edu/api/v1/artworks"
 
 //need to add a button to refresh the page and regenerate this call, to pull in new info to loadImages
 // const refreshButton = // 
 
+// Empty arrays to store API call info
 let pieceTitles = [];
 let artistNames = [];
 let datesCreated = [];
@@ -15,7 +17,8 @@ let mediumOfArt = [];
 let placesOfOrigin = [];
 let categoryTags = [];
 
-function loadImages () {
+//Image load API
+function loadImageInfo () {
     fetch('https://api.artic.edu/api/v1/artworks')
     .then((resp) => resp.json())
     .then((json) => {
@@ -47,27 +50,24 @@ function loadImages () {
 
     })
   };
+loadImageInfo();
 
-  //This function will take the data from the API call above and add it to image cards
-  function addInfo () {
-    pieceTitles.forEach(function(element) {
-        console.log()
-    })
- }
- 
+ //function to grab info from arrays above and put into list
  function createTitleElement () {
-    let ul = document.getElementById("art-image-list");
-    pieceTitles.forEach(function(element) {
+    for (let i=0; i <pieceTitles.length; i++){
+        console.log(i)
         let ul = document.getElementById("art-image-list");
-        let bullet = document.createElement("li")
-        ul.appendChild(bullet)
-    })
- }
+        let li = document.createElement('li');
+        ul.appendChild(li);
+        li.innerHTML=li.innerHTML + array[i];
+        }
+    }
+ createTitleElement();
 
  //Create the list of items
- const imageList = document.getElementById("art-image-list");
-    let artImg = document.createElement("li");
-    imageList.appendChild(artImg);
+ // const imageList = document.getElementById("art-image-list");
+    //let artImg = document.createElement("li");
+    //imageList.appendChild(artImg);
 
 //Going to use pageOptions to display in Dropdown to user
 const pageOptions = Math.random() * 9914 | 0;
