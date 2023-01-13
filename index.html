@@ -8,22 +8,25 @@
   <script type="text/javascript" src="index.js" defer ></script>
 </head>
 <body>
-  <header id = user-greeting>
-  </header>
-  <section> 
+<header id = user-greeting>
+</header>
+<section> 
 <div id = "search-filter"> 
-    <select id="select1"> 
-        <option value="">Please select</option> 
-        <option value="1">First option</option> 
-        <option value="2">Second option</option> 
-    </select>
+    <button type="button" id="play-again" >Play Again</button>
 </div>
 <div id="artwork-gallery">
+  <img id="image" alt="Try again :/">
   <ul id="artwork-list">
   </ul>
 </div>
+<div id="guessing-section">
+<form>
+    <input type="text" id="origin-guess">
+    <button type="button" id="guess" >Guess</button>
+    </form>
+</div>
 
-    </section>
+</section>
 
 </body>
 </html>

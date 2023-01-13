@@ -1,11 +1,8 @@
 //document.addEventListener("DOMContentLoaded", loadImages())
 
 document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("user-greeting").textContent = "Welcome back, Friend";
+    document.getElementById("user-greeting").textContent = "Welcome back, Player One";
 });
-
-//use this to get a random page (not ID)
-const myRandomNumber = Math.random() * 1000 | 0;
 
 //Base API URL
 const baseURL = "https://api.artic.edu/api/v1/artworks"
@@ -13,70 +10,171 @@ const baseURL = "https://api.artic.edu/api/v1/artworks"
 //need to add a button to refresh the page and regenerate this call, to pull in new info to loadImages
 // const refreshButton = // 
 
-// Empty arrays to store API call info
-let pieceTitles = [];
-let artistNames = [];
-let datesCreated = [];
-let mediumOfArt = [];
-let placesOfOrigin = [];
-let categoryTags = [];
+//Declare variables so they are accessible globally outside of the fetch function
+let imageIdentifier;
 
-//image load 
+//Option 1
+//Load images and create arrays for each piece of art based on info in API call
 function loadImageInfo () {
     fetch("https://api.artic.edu/api/v1/artworks")
     .then((resp) => resp.json())
     .then((json) => {
-    for (let i = 0; i < json.data.length; ++i) {
-            pieceTitles.push(json.data[i].title);
-            let listItem = document.createElement('li');
-            listItem.textContent = `$data.title`
-        }
+    
+        let pieceTitle = json.data[0].title
+        let pieceTitleListItem = document.createElement('li')
+        pieceTitleListItem.innerText = pieceTitle
+        document.getElementById("artwork-list").appendChild(pieceTitleListItem)
+        
+        let artistName = json.data[0].artist_title
+        let artistNameListItem = document.createElement('li')
+        artistNameListItem.innerText = artistName
+        document.getElementById("artwork-list").appendChild(artistNameListItem)
 
-    for (let i = 0; i < json.data.length; ++i) {
-        artistNames.push(json.data[i].artist_title)
-    }
+        let dateDisplayYear = json.data[0].date_display
+        let dateDisplayListItem = document.createElement('li')
+        dateDisplayListItem.innerText = dateDisplayYear
+        document.getElementById("artwork-list").appendChild(dateDisplayListItem)
 
-    for (let i = 0; i < json.data.length; ++i) {
-        datesCreated.push(json.data[i].date_display)
-    }
+        let mediumOfWork = json.data[0].medium_display
+        let mediumListItem = document.createElement('li')
+        mediumListItem.innerText = mediumOfWork
+        document.getElementById("artwork-list").appendChild(mediumListItem)
 
-    for (let i = 0; i < json.data.length; ++i) {
-        mediumOfArt.push(json.data[i].medium_display)
-    }
+        let placeOrigin = json.data[0].place_of_origin
+        let placeOfOriginList = document.createElement('li')
+        placeOfOriginList.innerText = placeOrigin
+        document.getElementById("artwork-list").appendChild(placeOfOriginList)
 
-    for (let i = 0; i < json.data.length; ++i) {
-        placesOfOrigin.push(json.data[i].place_of_origin)
-    }
-
-    for (let i = 0; i < json.data.length; ++i) {
-        categoryTags.push(json.data[i].category_titles)
-    }
-
-    console.log(json.pagination.current_page)
+        imageIdentifier = json.data[0].image_id;
+        
+        loadImage();
 
     })
   };
 
 loadImageInfo();
 
- //function to grab info from arrays above and put into list
- function createTitleElement () {
-    for (let i=0; i <pieceTitles.length; i++){
-        let listItem = document.createElement('li');
-            listItem.textContent = `$pieceTitle[i]`
+function loadImage () {
+    let url = `https://www.artic.edu/iiif/2/${imageIdentifier}/full/843,/0/default.jpg`;
+    fetch(url)
+        .then(response => response.blob())
+        .then(data => {
+        let objectURL = URL.createObjectURL(data);
+        const image = document.getElementById("image");
+        image.setAttribute("src", objectURL);
+    });
+}
+
+
+//Play Again Functionality
+let randomPage;
+document.getElementById('play-again').addEventListener("click", function(){
+        loadNewInfo();
+        loadNewImage();
+})
+
+//In response to PLAY AGAIN CLICK, should clear HTML and load new HTML
+let newImageIdentifier;
+let dateEndHolder;
+function loadNewInfo () {
+    let oldList = document.getElementById("artwork-list")
+    let oldImage = document.getElementById("image")
+    oldList.innerHTML = ""
+    oldImage.src = "";
+    randomPage = Math.random() * 9914 | 0;
+    //NEED TO MAKE THIS DYNAMIC TO THE FETCH CALL ABOVE 
+    fetch(`https://api.artic.edu/api/v1/artworks?page=${randomPage}`)
+    .then((resp) => resp.json())
+    .then((json) => {
+        let pieceTitle = json.data[0].title
+        let pieceTitleListItem = document.createElement('li')
+        pieceTitleListItem.innerText = pieceTitle
+        document.getElementById("artwork-list").appendChild(pieceTitleListItem)
+        
+        let artistName = json.data[0].artist_title
+        let artistNameListItem = document.createElement('li')
+        artistNameListItem.innerText = artistName
+        document.getElementById("artwork-list").appendChild(artistNameListItem)
+    
+        let dateDisplayYear = json.data[0].date_display
+        let dateDisplayListItem = document.createElement('li')
+        dateDisplayListItem.innerText = dateDisplayYear
+        document.getElementById("artwork-list").appendChild(dateDisplayListItem)
+    
+        let mediumOfWork = json.data[0].medium_display
+        let mediumListItem = document.createElement('li')
+        mediumListItem.innerText = mediumOfWork
+        document.getElementById("artwork-list").appendChild(mediumListItem)
+    
+        let placeOrigin = json.data[0].place_of_origin
+        let placeOfOriginList = document.createElement('li')
+        placeOfOriginList.innerText = placeOrigin
+        document.getElementById("artwork-list").appendChild(placeOfOriginList)
+    
+        newImageIdentifier = json.data[0].image_id;
+        dateEndHolder = json.data[0].date_end
+        
+        loadNewImage();
+})
+}
+
+console.log(dateEndHolder);
+
+function loadNewImage () {
+    let id = newImageIdentifier
+    let url = `https://www.artic.edu/iiif/2/${id}/full/843,/0/default.jpg`;
+    fetch(url)
+        .then(response => response.blob())
+        .then(data => {
+        let objectURL = URL.createObjectURL(data);
+        const image = document.getElementById("image");
+        image.setAttribute("src", objectURL);
+    });
+}
+
+//Allow user to guess the origin year
+
+async function searchArtworkDateDifference(searchTerm) {
+    // Make the API request
+    const response = await fetch("https://api.artic.edu/api/v1/artworks");
+    const data = await response.json();
+    const result = {};
+
+    // Iterate through the artworks and find the difference
+    for (let i = 0; i < data.length; i++) {
+        const artwork = data[i];
+        const dateEnd = artwork.date_end;
+        if (dateEnd) {
+            const difference = searchTerm - dateEnd;
+            result[artwork.title] = difference;
         }
-    };
-createTitleElement();
+    }
+    return result;
+}
 
-//Going to use pageOptions to display in Dropdown to user
-const pageOptions = Math.random() * 9914 | 0;
+const form = document.getElementById("search-form");
+form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    let dateEnd = dateEndHolder;
+    const searchTerm = document.getElementById("search-input").value;
+    // check if the input is not empty
+    if(searchTerm) {
+      const result = searchTerm - dateEnd;
+      console.log(result);
+    }
+})
 
-//Need to create the dropdown and add Event Listener
-document.getElementById("select1").addEventListener("change", function() { 
-    console.log(this.value); 
-  })
 
-//Allow user to search API based on terms
+
+document.getElementById("guess").addEventListener("submit", function(){
+    const input = document.getElementById("search-input");
+    input.addEventListener("submit", async function(event) {
+
+    })
+
+    //This function should take a search term from an HTML form element and send see if it is within a range of 50 years which is supplied by an API 
+})
+
 
 //Search the API functionality for terms/tags: https://api.artic.edu/api/v1/artworks/search?q=cats
 
