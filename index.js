@@ -137,21 +137,19 @@ form.addEventListener("submit", async function(e) {
    
 })
 
-
 function showMessageToUser () {
+    let popup = document.getElementById("feedback-popup");
+
     if (dateDifferenceResult < 50) {
-        let li = document.createElement('li')
-        li.innerText = `Nice work! You're close.`
-        document.getElementById("feedback-list").appendChild(li)
+        popup.innerHTML = `Nice work! You're close.`;
     }
     else if (dateDifferenceResult > 50) {
-        let li = document.createElement('li')
-        li.innerText = `Not quite there. Try again!`
-        document.getElementById("feedback-list").appendChild(li)
+        popup.innerHTML = "Not quite there, try again.";
     }
     else {
-        console.log('check')
+        popup.innerHTML = `Oops, this item doesn't have a date. Click "Reveal" to see why!`
     }
+    popup.style.display = "block";
 }
 
 

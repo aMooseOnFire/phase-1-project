@@ -138,3 +138,24 @@ header {
     border: none;
     cursor: pointer;
 }
+
+
+#feedback {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#feedback {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#feedback-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid black;
+  }
