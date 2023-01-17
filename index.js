@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
 //Declare variables so they are accessible globally outside of the fetch function
 let imageIdentifier;
 
-//INITIAL LOAD
+//INITIAL INFO AND IMAGE LOAD
 function loadImageInfo () {
     fetch("https://api.artic.edu/api/v1/artworks")
     .then((resp) => resp.json())
@@ -55,14 +55,14 @@ function loadImage () {
 }
 
 
-//Play Again Functionality
+//PLAY AGAIN FUNCTIONALITY
 let randomPage;
 document.getElementById('play-again').addEventListener("click", function(){
         loadNewInfo();
         loadNewImage();
 })
 
-//In response to PLAY AGAIN CLICK, should clear HTML and load new HTML
+//FUNCTIONS TO LOAD NEW INFO AND IMAGE
 let newImageIdentifier;
 let dateEndHolder;
 function loadNewInfo () {
@@ -99,8 +99,11 @@ function loadNewInfo () {
         dateEndHolder = json.data[0].date_end
         
         loadNewImage();
+
+        document.getElementById("search-input").value = " "
         
         return dateEndHolder;
+        
 })
 }
 
@@ -150,9 +153,6 @@ function showMessageToUser () {
     popup.style.display = "none";
 });
 }
-
-
-//Search the API functionality for terms/tags: https://api.artic.edu/api/v1/artworks/search?q=cats
 
 
 //REVEAL FUNCTIONALITY 
