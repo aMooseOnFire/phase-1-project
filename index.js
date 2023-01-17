@@ -95,11 +95,7 @@ function loadNewInfo () {
         let artistNameListItem = document.createElement('li')
         artistNameListItem.innerText = artistName
         document.getElementById("artwork-list").appendChild(artistNameListItem)
-    
-        let dateDisplayYear = json.data[0].date_display
-        let dateDisplayListItem = document.createElement('li')
-        dateDisplayListItem.innerText = dateDisplayYear
-        document.getElementById("artwork-list").appendChild(dateDisplayListItem)
+
     
         let mediumOfWork = json.data[0].medium_display
         let mediumListItem = document.createElement('li')
@@ -115,6 +111,8 @@ function loadNewInfo () {
         dateEndHolder = json.data[0].date_end
         
         loadNewImage();
+        
+        return dateEndHolder;
 })
 }
 
@@ -159,7 +157,7 @@ form.addEventListener("submit", async function(e) {
     const searchTerm = document.getElementById("search-input").value;
     // check if the input is not empty
     if(searchTerm) {
-      const result = searchTerm - dateEnd;
+      const result = Math.abs(searchTerm - dateEnd);
       console.log(result);
       //If result < 50, show Congrats! 
       //If result > 50, show Do better next time!
@@ -181,12 +179,20 @@ function showMessageToUser () {
         const li = document.createElement('li')
         li.innerHTML = `
         <div class="card-body">
-        <p>`Yikes! You were off by ${}`</p>
+        <p> Yikes! Better luck next time. </p>
         </div>
         `
     }
 }
 
+const revealForm = document.getElementById("reveal-form");
+revealForm.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    let dateDisplayListItem = document.createElement('li');
+    dateDisplayListItem.innerText = dateEndHolder;
+    document.getElementById("artwork-list").appendChild(dateDisplayListItem);
+   
+})
 
 
 document.getElementById("guess").addEventListener("submit", function(){
@@ -197,5 +203,7 @@ document.getElementById("guess").addEventListener("submit", function(){
 
     //This function should take a search term from an HTML form element and send see if it is within a range of 50 years which is supplied by an API 
 })
+
+//Allow user to keep guessing? Add a "Reveal" button to allow users to see the date
 
 //Search the API functionality for terms/tags: https://api.artic.edu/api/v1/artworks/search?q=cats
