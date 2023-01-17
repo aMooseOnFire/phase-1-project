@@ -147,7 +147,7 @@ function showMessageToUser () {
         popup.innerHTML = "Not quite there, try again.";
     }
     else {
-        popup.innerHTML = `Oops, this item doesn't have a date. Click "Reveal" to see why!`
+        popup.innerHTML = `Oops, this item doesn't have a date. Click "Reveal" to see what info it does have or Play Again to move on.`
     }
     popup.style.display = "block";
 }
