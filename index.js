@@ -4,17 +4,11 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("user-greeting").textContent = "Welcome back, Player One";
 });
 
-//Base API URL
-const baseURL = "https://api.artic.edu/api/v1/artworks"
-
-//need to add a button to refresh the page and regenerate this call, to pull in new info to loadImages
-// const refreshButton = // 
 
 //Declare variables so they are accessible globally outside of the fetch function
 let imageIdentifier;
 
-//Option 1
-//Load images and create arrays for each piece of art based on info in API call
+//INITIAL LOAD
 function loadImageInfo () {
     fetch("https://api.artic.edu/api/v1/artworks")
     .then((resp) => resp.json())
@@ -124,7 +118,7 @@ function loadNewImage () {
     });
 }
 
-//Allow user to guess the origin year
+//GUESSING FUNCTIONALITY AND RESPONSE
 let dateDifferenceResult;
 const form = document.getElementById("search-form");
 form.addEventListener("submit", async function(e) {
@@ -141,21 +135,21 @@ function showMessageToUser () {
     let popup = document.getElementById("feedback-popup");
 
     if (dateDifferenceResult < 50) {
-        popup.innerHTML = `Nice work! You're close.`;
+        popup.innerHTML = `Nice work! You're close. <button id="close-button">Close</button>`
     }
     else if (dateDifferenceResult > 50) {
-        popup.innerHTML = "Not quite there, try again.";
+        popup.innerHTML = `Not quite there, try again. <button id="close-button">Close</button>`
     }
     else {
-        popup.innerHTML = `Oops, this item doesn't have a date. Click "Reveal" to see what info it does have or Play Again to move on.`
+        popup.innerHTML = `Oops, this item doesn't have a date. Click "Reveal" to see what info it does have or Play Again to move on. <button id="close-button">Close</button> `
     }
     popup.style.display = "block";
-}
 
-let closeButton = document.getElementById("close-button");
-closeButton.addEventListener("click", function() {
-  popup.style.display = "none";
+    let closeButton = document.getElementById("close-button");
+    closeButton.addEventListener("click", function() {
+    popup.style.display = "none";
 });
+}
 
 
 //Search the API functionality for terms/tags: https://api.artic.edu/api/v1/artworks/search?q=cats

@@ -9,4 +9,9 @@ Use "Guess" to guess what year the item was created/finished in.
 Use "Reveal" to reveal the date that the item was created finished in.
 Use "Play Again" to refresh
 
+//Base API URL
+"https://api.artic.edu/api/v1/artworks"
 
+//Image API URL
+https://www.artic.edu/iiif/2/{identifier}/full/843,/0/default.jpg
+... Which pulls the identifier from the 
