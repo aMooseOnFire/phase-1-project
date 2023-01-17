@@ -126,8 +126,6 @@ function loadNewImage () {
 }
 
 //Allow user to guess the origin year
-
-
 const form = document.getElementById("search-form");
 form.addEventListener("submit", async function(e) {
     e.preventDefault();
@@ -137,32 +135,14 @@ form.addEventListener("submit", async function(e) {
     if(searchTerm) {
       const result = Math.abs(searchTerm - dateEnd);
       console.log(result);
+      return result;
       //If result < 50, show Congrats! 
       //If result > 50, show Do better next time!
     }
 })
 
-function showMessageToUser () {
-    //Take result from eventListener and insert here
-    //
-    if (variable < 50) {
-        const li = document.createElement('li')
-        li.innerHTML = `
-        <div class="card-body">
-        <p>Nice work!</p>
-        </div>
-    `
-    }
-    else {
-        const li = document.createElement('li')
-        li.innerHTML = `
-        <div class="card-body">
-        <p> Yikes! Better luck next time. </p>
-        </div>
-        `
-    }
-}
 
+//REVEAL FUNCTIONALITY 
 const revealForm = document.getElementById("reveal-form");
 revealForm.addEventListener("submit", async function(e) {
     e.preventDefault();
@@ -172,16 +152,41 @@ revealForm.addEventListener("submit", async function(e) {
    
 })
 
-
+//DIFFERENCE FUNCION
 document.getElementById("guess").addEventListener("submit", function(){
     const input = document.getElementById("search-input");
     input.addEventListener("submit", async function(event) {
-
+    showMessageToUser();
     })
 
     //This function should take a search term from an HTML form element and send see if it is within a range of 50 years which is supplied by an API 
 })
 
-//Allow user to keep guessing? Add a "Reveal" button to allow users to see the date
+function showMessageToUser () {
+    //Take result from eventListener and insert here
+
+    if (result < 50) {
+        const li = document.createElement('li')
+        li.innerHTML = `
+        <div class="card-body">
+        <p>Nice work!</p>
+        </div>
+    `
+        document.getElementById("feedback-list").appendChild(li)
+        console.log(result)
+       
+    }
+    else if (result > 50) {
+        const li = document.createElement('li')
+        li.innerHTML = `
+        <div class="card-body">
+        <p> Yikes! Better luck next time. </p>
+        </div>
+        `
+    }
+    else {
+
+    }
+}
 
 //Search the API functionality for terms/tags: https://api.artic.edu/api/v1/artworks/search?q=cats
