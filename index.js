@@ -161,8 +161,31 @@ form.addEventListener("submit", async function(e) {
     if(searchTerm) {
       const result = searchTerm - dateEnd;
       console.log(result);
+      //If result < 50, show Congrats! 
+      //If result > 50, show Do better next time!
     }
 })
+
+function showMessageToUser () {
+    //Take result from eventListener and insert here
+    //
+    if (variable < 50) {
+        const li = document.createElement('li')
+        li.innerHTML = `
+        <div class="card-body">
+        <p>Nice work!</p>
+        </div>
+    `
+    }
+    else {
+        const li = document.createElement('li')
+        li.innerHTML = `
+        <div class="card-body">
+        <p>`Yikes! You were off by ${}`</p>
+        </div>
+        `
+    }
+}
 
 
 
@@ -175,13 +198,4 @@ document.getElementById("guess").addEventListener("submit", function(){
     //This function should take a search term from an HTML form element and send see if it is within a range of 50 years which is supplied by an API 
 })
 
-
 //Search the API functionality for terms/tags: https://api.artic.edu/api/v1/artworks/search?q=cats
-
-//Hide the artist name and origin and have user guess
-
-//Input box
-
-//REveal functionality 
-
-//Refresh page to show another piece of art 
