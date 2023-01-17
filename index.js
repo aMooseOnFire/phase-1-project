@@ -126,20 +126,35 @@ function loadNewImage () {
 }
 
 //Allow user to guess the origin year
+let dateDifferenceResult;
 const form = document.getElementById("search-form");
 form.addEventListener("submit", async function(e) {
     e.preventDefault();
     let dateEnd = dateEndHolder;
     const searchTerm = document.getElementById("search-input").value;
-    // check if the input is not empty
-    if(searchTerm) {
-      const result = Math.abs(searchTerm - dateEnd);
-      console.log(result);
-      return result;
-      //If result < 50, show Congrats! 
-      //If result > 50, show Do better next time!
+    const dateDifferenceResult = Math.abs(searchTerm - dateEnd);
+    return dateDifferenceResult;
+    function showMessageToUser () {
+        if (dateDifferenceResult < 50) {
+            let li = document.createElement('li')
+            li.innerText = `Nice work! You're close.`
+            document.getElementById("feedback-list").appendChild(li)
+        }
+        else if (dateDifferenceResult > 50) {
+            let li = document.createElement('li')
+            li.innerText = `Not quite there. Try again!`
+            document.getElementById("feedback-list").appendChild(li)
+        }
+        else {
+            console.log('check')
+        }
     }
+    
 })
+
+
+
+//Search the API functionality for terms/tags: https://api.artic.edu/api/v1/artworks/search?q=cats
 
 
 //REVEAL FUNCTIONALITY 
@@ -149,44 +164,4 @@ revealForm.addEventListener("submit", async function(e) {
     let dateDisplayListItem = document.createElement('li');
     dateDisplayListItem.innerText = dateEndHolder;
     document.getElementById("artwork-list").appendChild(dateDisplayListItem);
-   
 })
-
-//DIFFERENCE FUNCION
-document.getElementById("guess").addEventListener("submit", function(){
-    const input = document.getElementById("search-input");
-    input.addEventListener("submit", async function(event) {
-    showMessageToUser();
-    })
-
-    //This function should take a search term from an HTML form element and send see if it is within a range of 50 years which is supplied by an API 
-})
-
-function showMessageToUser () {
-    //Take result from eventListener and insert here
-
-    if (result < 50) {
-        const li = document.createElement('li')
-        li.innerHTML = `
-        <div class="card-body">
-        <p>Nice work!</p>
-        </div>
-    `
-        document.getElementById("feedback-list").appendChild(li)
-        console.log(result)
-       
-    }
-    else if (result > 50) {
-        const li = document.createElement('li')
-        li.innerHTML = `
-        <div class="card-body">
-        <p> Yikes! Better luck next time. </p>
-        </div>
-        `
-    }
-    else {
-
-    }
-}
-
-//Search the API functionality for terms/tags: https://api.artic.edu/api/v1/artworks/search?q=cats
