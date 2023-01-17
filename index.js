@@ -132,26 +132,27 @@ form.addEventListener("submit", async function(e) {
     e.preventDefault();
     let dateEnd = dateEndHolder;
     const searchTerm = document.getElementById("search-input").value;
-    const dateDifferenceResult = Math.abs(searchTerm - dateEnd);
+    dateDifferenceResult = Math.abs(searchTerm - dateEnd);
+    showMessageToUser();
     return dateDifferenceResult;
-    function showMessageToUser () {
-        if (dateDifferenceResult < 50) {
-            let li = document.createElement('li')
-            li.innerText = `Nice work! You're close.`
-            document.getElementById("feedback-list").appendChild(li)
-        }
-        else if (dateDifferenceResult > 50) {
-            let li = document.createElement('li')
-            li.innerText = `Not quite there. Try again!`
-            document.getElementById("feedback-list").appendChild(li)
-        }
-        else {
-            console.log('check')
-        }
-    }
-    
 })
 
+
+function showMessageToUser () {
+    if (dateDifferenceResult < 50) {
+        let li = document.createElement('li')
+        li.innerText = `Nice work! You're close.`
+        document.getElementById("feedback-list").appendChild(li)
+    }
+    else if (dateDifferenceResult > 50) {
+        let li = document.createElement('li')
+        li.innerText = `Not quite there. Try again!`
+        document.getElementById("feedback-list").appendChild(li)
+    }
+    else {
+        console.log('check')
+    }
+}
 
 
 //Search the API functionality for terms/tags: https://api.artic.edu/api/v1/artworks/search?q=cats
