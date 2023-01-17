@@ -90,7 +90,6 @@ function loadNewInfo () {
         let artistNameListItem = document.createElement('li')
         artistNameListItem.innerText = artistName
         document.getElementById("artwork-list").appendChild(artistNameListItem)
-
     
         let mediumOfWork = json.data[0].medium_display
         let mediumListItem = document.createElement('li')
@@ -133,8 +132,9 @@ form.addEventListener("submit", async function(e) {
     let dateEnd = dateEndHolder;
     const searchTerm = document.getElementById("search-input").value;
     dateDifferenceResult = Math.abs(searchTerm - dateEnd);
+    console.log(dateDifferenceResult);
     showMessageToUser();
-    return dateDifferenceResult;
+   
 })
 
 
