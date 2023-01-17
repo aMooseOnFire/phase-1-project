@@ -152,6 +152,11 @@ function showMessageToUser () {
     popup.style.display = "block";
 }
 
+let closeButton = document.getElementById("close-button");
+closeButton.addEventListener("click", function() {
+  popup.style.display = "none";
+});
+
 
 //Search the API functionality for terms/tags: https://api.artic.edu/api/v1/artworks/search?q=cats
 
