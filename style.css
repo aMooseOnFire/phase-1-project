@@ -85,3 +85,56 @@ header {
     border: none;
     cursor: pointer;
 }
+
+#guessing-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#reveal-section button {
+    padding: 8px 20px;
+    background-color: blue;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+#reveal-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#reveal-section form {
+    display: inline-block;
+}
+
+#reveal-section input {
+    padding: 8px 20px;
+    margin-right: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+#reveal-section button {
+    padding: 8px 20px;
+    background-color: blue;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+#reveal-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#reveal-section button {
+    padding: 8px 20px;
+    background-color: blue;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}

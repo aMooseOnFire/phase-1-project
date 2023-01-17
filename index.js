@@ -30,11 +30,6 @@ function loadImageInfo () {
         artistNameListItem.innerText = artistName
         document.getElementById("artwork-list").appendChild(artistNameListItem)
 
-        let dateDisplayYear = json.data[0].date_display
-        let dateDisplayListItem = document.createElement('li')
-        dateDisplayListItem.innerText = dateDisplayYear
-        document.getElementById("artwork-list").appendChild(dateDisplayListItem)
-
         let mediumOfWork = json.data[0].medium_display
         let mediumListItem = document.createElement('li')
         mediumListItem.innerText = mediumOfWork
@@ -132,23 +127,6 @@ function loadNewImage () {
 
 //Allow user to guess the origin year
 
-async function searchArtworkDateDifference(searchTerm) {
-    // Make the API request
-    const response = await fetch("https://api.artic.edu/api/v1/artworks");
-    const data = await response.json();
-    const result = {};
-
-    // Iterate through the artworks and find the difference
-    for (let i = 0; i < data.length; i++) {
-        const artwork = data[i];
-        const dateEnd = artwork.date_end;
-        if (dateEnd) {
-            const difference = searchTerm - dateEnd;
-            result[artwork.title] = difference;
-        }
-    }
-    return result;
-}
 
 const form = document.getElementById("search-form");
 form.addEventListener("submit", async function(e) {
