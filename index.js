@@ -121,7 +121,8 @@ function loadNewInfo () {
         loadNewImage();        
 
         document.getElementById("search-input").value = " "
-        
+        document.getElementById("titles-list").value = " "
+
         return dateEndHolder;
         
 })
