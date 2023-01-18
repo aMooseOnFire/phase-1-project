@@ -1,9 +1,8 @@
 //document.addEventListener("DOMContentLoaded", loadImages())
 
 document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("user-greeting").textContent = "Welcome back, Player One";
+    document.getElementById("user-greeting").textContent = "Welcome to GARTY (Guess that Art Year)";
 });
-
 
 //Declare variables so they are accessible globally outside of the fetch function
 let imageIdentifier;
@@ -16,22 +15,22 @@ function loadImageInfo () {
     
         let pieceTitle = json.data[0].title
         let pieceTitleListItem = document.createElement('li')
-        pieceTitleListItem.innerText = pieceTitle
+        pieceTitleListItem.innerText = "Title:" + " " + pieceTitle
         document.getElementById("artwork-list").appendChild(pieceTitleListItem)
         
         let artistName = json.data[0].artist_title
         let artistNameListItem = document.createElement('li')
-        artistNameListItem.innerText = artistName
+        artistNameListItem.innerText = "Artist Name:" + " " + artistName
         document.getElementById("artwork-list").appendChild(artistNameListItem)
 
         let mediumOfWork = json.data[0].medium_display
         let mediumListItem = document.createElement('li')
-        mediumListItem.innerText = mediumOfWork
+        mediumListItem.innerText = "Medium:" + " " + mediumOfWork
         document.getElementById("artwork-list").appendChild(mediumListItem)
 
         let placeOrigin = json.data[0].place_of_origin
         let placeOfOriginList = document.createElement('li')
-        placeOfOriginList.innerText = placeOrigin
+        placeOfOriginList.innerText = "Place of Origin:" + " " + placeOrigin
         document.getElementById("artwork-list").appendChild(placeOfOriginList)
 
         imageIdentifier = json.data[0].image_id;
@@ -77,22 +76,22 @@ function loadNewInfo () {
     .then((json) => {
         let pieceTitle = json.data[0].title
         let pieceTitleListItem = document.createElement('li')
-        pieceTitleListItem.innerText = pieceTitle
+        pieceTitleListItem.innerText = "Title:" + " " + pieceTitle
         document.getElementById("artwork-list").appendChild(pieceTitleListItem)
         
         let artistName = json.data[0].artist_title
         let artistNameListItem = document.createElement('li')
-        artistNameListItem.innerText = artistName
+        artistNameListItem.innerText = "Artist Name:" + " " + artistName
         document.getElementById("artwork-list").appendChild(artistNameListItem)
     
         let mediumOfWork = json.data[0].medium_display
         let mediumListItem = document.createElement('li')
-        mediumListItem.innerText = mediumOfWork
+        mediumListItem.innerText = "Medium:" + " " + mediumOfWork
         document.getElementById("artwork-list").appendChild(mediumListItem)
     
         let placeOrigin = json.data[0].place_of_origin
         let placeOfOriginList = document.createElement('li')
-        placeOfOriginList.innerText = placeOrigin
+        placeOfOriginList.innerText = "Place of Origin:" + " " + placeOrigin
         document.getElementById("artwork-list").appendChild(placeOfOriginList)
     
         newImageIdentifier = json.data[0].image_id;
@@ -143,6 +142,9 @@ function showMessageToUser () {
     else if (dateDifferenceResult > 50) {
         popup.innerHTML = `Not quite there, try again. <button id="close-button">Close</button>`
     }
+    else if (dateDifferenceResult = 0) {
+        popup.innerHTML = `Amazing! Right on the money! <button id="close-button">Close</button>`
+    }
     else {
         popup.innerHTML = `Oops, this item doesn't have a date. Click "Reveal" to see what info it does have or Play Again to move on. <button id="close-button">Close</button> `
     }
@@ -151,6 +153,7 @@ function showMessageToUser () {
     let closeButton = document.getElementById("close-button");
     closeButton.addEventListener("click", function() {
     popup.style.display = "none";
+    document.getElementById("search-input").value = " "
 });
 }
 
