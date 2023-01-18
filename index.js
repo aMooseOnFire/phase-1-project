@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
 let imageIdentifier;
 
 //INITIAL INFO AND IMAGE LOAD
+let pieceTitles = [];
 function loadImageInfo () {
     fetch("https://api.artic.edu/api/v1/artworks")
     .then((resp) => resp.json())
@@ -32,6 +33,16 @@ function loadImageInfo () {
         let placeOfOriginList = document.createElement('li')
         placeOfOriginList.innerText = "Place of Origin:" + " " + placeOrigin
         document.getElementById("artwork-list").appendChild(placeOfOriginList)
+
+        //Adds piece titles in this page to list at bottom of page
+        for (let i = 0; i < json.data.length; ++i) {
+            pieceTitles.push(json.data[i].title);   
+        }
+        pieceTitles.map((pieceTitle) => {
+            let pieceTitlesList = document.createElement('li')
+            pieceTitlesList.innerText = pieceTitle
+            document.getElementById("titles-list").appendChild(pieceTitlesList)
+        })
 
         imageIdentifier = json.data[0].image_id;
         
@@ -93,11 +104,21 @@ function loadNewInfo () {
         let placeOfOriginList = document.createElement('li')
         placeOfOriginList.innerText = "Place of Origin:" + " " + placeOrigin
         document.getElementById("artwork-list").appendChild(placeOfOriginList)
+
+        //Adds piece titles in this page to list at bottom of page
+        for (let i = 0; i < json.data.length; ++i) {
+            pieceTitles.push(json.data[i].title);   
+        }
+        pieceTitles.map((pieceTitle) => {
+            let pieceTitlesList = document.createElement('li')
+            pieceTitlesList.innerText = pieceTitle
+            document.getElementById("titles-list").appendChild(pieceTitlesList)
+        })
     
         newImageIdentifier = json.data[0].image_id;
         dateEndHolder = json.data[0].date_end
         
-        loadNewImage();
+        loadNewImage();        
 
         document.getElementById("search-input").value = " "
         

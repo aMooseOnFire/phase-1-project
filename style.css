@@ -148,3 +148,20 @@ header {
     padding: 20px;
     border: 1px solid black;
   }
+
+  #titles-list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
+
+#titles-list li {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
