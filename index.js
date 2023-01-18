@@ -105,6 +105,8 @@ function loadNewInfo () {
         placeOfOriginList.innerText = "Place of Origin:" + " " + placeOrigin
         document.getElementById("artwork-list").appendChild(placeOfOriginList)
 
+        document.getElementById("titles-list").innerHTML = " "
+
         //Adds piece titles in this page to list at bottom of page
         for (let i = 0; i < json.data.length; ++i) {
             pieceTitles.push(json.data[i].title);   
@@ -121,7 +123,6 @@ function loadNewInfo () {
         loadNewImage();        
 
         document.getElementById("search-input").value = " "
-        document.getElementById("titles-list").value = " "
 
         return dateEndHolder;
         
