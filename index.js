@@ -81,7 +81,10 @@ function loadNewInfo () {
     oldList.innerHTML = ""
     oldImage.src = "";
     randomPage = Math.random() * 9914 | 0;
-    //NEED TO MAKE THIS DYNAMIC TO THE FETCH CALL ABOVE 
+    //Reset the Titles Array
+    document.getElementById("titles-list").innerHTML = " "
+    pieceTitles = [];
+    //Dynamic fetch call to new page
     fetch(`https://api.artic.edu/api/v1/artworks?page=${randomPage}`)
     .then((resp) => resp.json())
     .then((json) => {
@@ -105,7 +108,6 @@ function loadNewInfo () {
         placeOfOriginList.innerText = "Place of Origin:" + " " + placeOrigin
         document.getElementById("artwork-list").appendChild(placeOfOriginList)
 
-        document.getElementById("titles-list").innerHTML = " "
 
         //Adds piece titles in this page to list at bottom of page
         for (let i = 0; i < json.data.length; ++i) {
@@ -128,6 +130,8 @@ function loadNewInfo () {
         
 })
 }
+
+
 
 console.log(dateEndHolder);
 
