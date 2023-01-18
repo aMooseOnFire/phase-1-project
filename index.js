@@ -35,14 +35,14 @@ function loadImageInfo () {
         document.getElementById("artwork-list").appendChild(placeOfOriginList)
 
         //Adds piece titles in this page to list at bottom of page
-        for (let i = 0; i < json.data.length; ++i) {
-            pieceTitles.push(json.data[i].title);   
-        }
-        pieceTitles.map((pieceTitle) => {
-            let pieceTitlesList = document.createElement('li')
-            pieceTitlesList.innerText = pieceTitle
-            document.getElementById("titles-list").appendChild(pieceTitlesList)
-        })
+        // for (let i = 0; i < json.data.length; ++i) {
+        //     pieceTitles.push(json.data[i].title);   
+        // }
+        // pieceTitles.map((pieceTitle) => {
+        //     let pieceTitlesList = document.createElement('li')
+        //     pieceTitlesList.innerText = pieceTitle
+        //     document.getElementById("titles-list").appendChild(pieceTitlesList)
+        // })
 
         imageIdentifier = json.data[0].image_id;
         
@@ -110,14 +110,14 @@ function loadNewInfo () {
 
 
         //Adds piece titles in this page to list at bottom of page
-        for (let i = 0; i < json.data.length; ++i) {
-            pieceTitles.push(json.data[i].title);   
-        }
-        pieceTitles.map((pieceTitle) => {
-            let pieceTitlesList = document.createElement('li')
-            pieceTitlesList.innerText = pieceTitle
-            document.getElementById("titles-list").appendChild(pieceTitlesList)
-        })
+        // for (let i = 0; i < json.data.length; ++i) {
+        //     pieceTitles.push(json.data[i].title);   
+        // }
+        // pieceTitles.map((pieceTitle) => {
+        //     let pieceTitlesList = document.createElement('li')
+        //     pieceTitlesList.innerText = pieceTitle
+        //     document.getElementById("titles-list").appendChild(pieceTitlesList)
+        // })
     
         newImageIdentifier = json.data[0].image_id;
         dateEndHolder = json.data[0].date_end
@@ -163,10 +163,10 @@ form.addEventListener("submit", async function(e) {
 function showMessageToUser () {
     let popup = document.getElementById("feedback-popup");
 
-    if (dateDifferenceResult < 50) {
-        popup.innerHTML = `Nice work! You're close. <button id="close-button">Close</button>`
+    if (dateDifferenceResult < 20) {
+        popup.innerHTML = `Nice work! You're only ${dateDifferenceResult} off! <button id="close-button">Close</button>`
     }
-    else if (dateDifferenceResult > 50) {
+    else if (dateDifferenceResult > 20) {
         popup.innerHTML = `Not quite there, try again. <button id="close-button">Close</button>`
     }
     else if (dateDifferenceResult = 0) {
