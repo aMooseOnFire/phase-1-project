@@ -181,3 +181,52 @@ function showMessageToUser () {
         document.getElementById("feedback-list").appendChild(li)
     }
 }
+
+
+function loadNewImage () {
+    let id = newImageIdentifier
+    let url = `https://www.artic.edu/iiif/2/${id}/full/843,/0/default.jpg`;
+    fetch(url)
+        .then(response => response.blob())
+        .then(data => {
+        let objectURL = URL.createObjectURL(data);
+        const image = document.getElementById("image");
+        image.setAttribute("src", objectURL);
+    });
+}
+
+//CREATE ARTWORK OPTIONS FOR LATER USE
+
+for (let i = 0; i < json.data.length; ++i) {
+    pieceTitles.push(json.data[i].title);
+    let pieceTitlesList = document.createElement('li')
+    document.getElementById("titles-list").appendChild(pieceTitlesList)
+    pieceTitlesList.addEventListener(click, () => createArtList(json.data[i]))
+    }
+    
+    pieceTitles.map((pieceTitle) => {
+         
+         pieceTitlesList.innerText = pieceTitle
+         document.getElementById("titles-list").appendChild(pieceTitlesList)
+    })
+
+
+   /*      let pieceTitle = json.data[0].title
+        let pieceTitleListItem = document.createElement('li')
+        pieceTitleListItem.innerText = "Title:" + " " + pieceTitle
+        document.getElementById("artwork-list").appendChild(pieceTitleListItem)
+        
+        let artistName = json.data[0].artist_title
+        let artistNameListItem = document.createElement('li')
+        artistNameListItem.innerText = "Artist Name:" + " " + artistName
+        document.getElementById("artwork-list").appendChild(artistNameListItem)
+    
+        let mediumOfWork = json.data[0].medium_display
+        let mediumListItem = document.createElement('li')
+        mediumListItem.innerText = "Medium:" + " " + mediumOfWork
+        document.getElementById("artwork-list").appendChild(mediumListItem)
+    
+        let placeOrigin = json.data[0].place_of_origin
+        let placeOfOriginList = document.createElement('li')
+        placeOfOriginList.innerText = "Place of Origin:" + " " + placeOrigin
+        document.getElementById("artwork-list").appendChild(placeOfOriginList) */

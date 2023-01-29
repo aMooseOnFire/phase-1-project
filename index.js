@@ -1,59 +1,71 @@
 //document.addEventListener("DOMContentLoaded", loadImages())
 
 document.addEventListener("DOMContentLoaded", function() {
+    loadImageInfo();
     document.getElementById("user-greeting").textContent = "Welcome to GARTY (Guess that Art Year)";
 });
 
-//Declare variables so they are accessible globally outside of the fetch function
-let imageIdentifier;
+// Step 1: Function that queries ("https://api.artic.edu/api/v1/artworks"), displays Title, Medium, etc, pulls in Image ID and passes to `https://www.artic.edu/iiif/2/${imageIdentifier}/full/843,/0/default.jpg`. Step 2: This function should also be called when player clicks Play Again and it should receive a random number to in order to get new information. 
 
-//INITIAL INFO AND IMAGE LOAD
+const artworkList = document.getElementById("artwork-list");
+
+//DOM construction function
+function createArtList(artworkObject) {
+    
+    artworkList.innerHTML = " "
+
+    let pieceTitle = artworkObject.title
+    let pieceTitleListItem = document.createElement('li')
+    
+    let artistName = artworkObject.artist_title
+    let artistNameListItem = document.createElement('li')
+    
+    let mediumOfWork = artworkObject.medium_display
+    let mediumListItem = document.createElement('li')
+    
+    let placeOrigin = artworkObject.place_of_origin
+    let placeOfOriginList = document.createElement('li')
+
+    pieceTitleListItem.innerText = "Title:" + " " + pieceTitle
+    
+    artistNameListItem.innerText = "Artist Name:" + " " + artistName
+    
+    mediumListItem.innerText = "Medium:" + " " + mediumOfWork
+    
+    placeOfOriginList.innerText = "Place of Origin:" + " " + placeOrigin
+
+    artworkList.append(pieceTitleListItem, artistNameListItem, mediumListItem, placeOfOriginList)
+    artworkList.setAttribute("artworkEndDate", artworkObject.date_end)
+    
+    loadImage(artworkObject.image_id);
+
+}
+
+//INITIAL INFO 
 let pieceTitles = [];
 function loadImageInfo () {
     fetch("https://api.artic.edu/api/v1/artworks")
     .then((resp) => resp.json())
     .then((json) => {
-    
-        let pieceTitle = json.data[0].title
-        let pieceTitleListItem = document.createElement('li')
-        pieceTitleListItem.innerText = "Title:" + " " + pieceTitle
-        document.getElementById("artwork-list").appendChild(pieceTitleListItem)
-        
-        let artistName = json.data[0].artist_title
-        let artistNameListItem = document.createElement('li')
-        artistNameListItem.innerText = "Artist Name:" + " " + artistName
-        document.getElementById("artwork-list").appendChild(artistNameListItem)
-
-        let mediumOfWork = json.data[0].medium_display
-        let mediumListItem = document.createElement('li')
-        mediumListItem.innerText = "Medium:" + " " + mediumOfWork
-        document.getElementById("artwork-list").appendChild(mediumListItem)
-
-        let placeOrigin = json.data[0].place_of_origin
-        let placeOfOriginList = document.createElement('li')
-        placeOfOriginList.innerText = "Place of Origin:" + " " + placeOrigin
-        document.getElementById("artwork-list").appendChild(placeOfOriginList)
-
-        //Adds piece titles in this page to list at bottom of page
-        // for (let i = 0; i < json.data.length; ++i) {
-        //     pieceTitles.push(json.data[i].title);   
-        // }
-        // pieceTitles.map((pieceTitle) => {
-        //     let pieceTitlesList = document.createElement('li')
-        //     pieceTitlesList.innerText = pieceTitle
-        //     document.getElementById("titles-list").appendChild(pieceTitlesList)
-        // })
-
-        imageIdentifier = json.data[0].image_id;
-        
-        loadImage();
-
+        createArtList(json.data[0]);
+        loadOptions(json.data);
     })
   };
 
-loadImageInfo();
+//LOAD OPTIONS AT BOTTOM
+//switch to forEach
+function loadOptions (titles) {
+    for (let i = 0; i < titles.length; ++i) {
+        pieceTitles.push(titles[i]);
+        let pieceTitlesList = document.createElement('li')
+        pieceTitlesList.innerText = titles[i].title;
+        document.getElementById("titles-list").appendChild(pieceTitlesList)
+        pieceTitlesList.addEventListener("onClick", () => createArtList(titles[i]))
+        }
+}
 
-function loadImage () {
+//IMAGE LOAD
+function loadImage (imageIdentifier) {
     let url = `https://www.artic.edu/iiif/2/${imageIdentifier}/full/843,/0/default.jpg`;
     fetch(url)
         .then(response => response.blob())
@@ -64,21 +76,17 @@ function loadImage () {
     });
 }
 
-
 //PLAY AGAIN FUNCTIONALITY
 let randomPage;
 document.getElementById('play-again').addEventListener("click", function(){
         loadNewInfo();
-        loadNewImage();
 })
 
 //FUNCTIONS TO LOAD NEW INFO AND IMAGE
 let newImageIdentifier;
 let dateEndHolder;
 function loadNewInfo () {
-    let oldList = document.getElementById("artwork-list")
     let oldImage = document.getElementById("image")
-    oldList.innerHTML = ""
     oldImage.src = "";
     randomPage = Math.random() * 9914 | 0;
     //Reset the Titles Array
@@ -88,88 +96,33 @@ function loadNewInfo () {
     fetch(`https://api.artic.edu/api/v1/artworks?page=${randomPage}`)
     .then((resp) => resp.json())
     .then((json) => {
-        let pieceTitle = json.data[0].title
-        let pieceTitleListItem = document.createElement('li')
-        pieceTitleListItem.innerText = "Title:" + " " + pieceTitle
-        document.getElementById("artwork-list").appendChild(pieceTitleListItem)
-        
-        let artistName = json.data[0].artist_title
-        let artistNameListItem = document.createElement('li')
-        artistNameListItem.innerText = "Artist Name:" + " " + artistName
-        document.getElementById("artwork-list").appendChild(artistNameListItem)
-    
-        let mediumOfWork = json.data[0].medium_display
-        let mediumListItem = document.createElement('li')
-        mediumListItem.innerText = "Medium:" + " " + mediumOfWork
-        document.getElementById("artwork-list").appendChild(mediumListItem)
-    
-        let placeOrigin = json.data[0].place_of_origin
-        let placeOfOriginList = document.createElement('li')
-        placeOfOriginList.innerText = "Place of Origin:" + " " + placeOrigin
-        document.getElementById("artwork-list").appendChild(placeOfOriginList)
-
-
-        //Adds piece titles in this page to list at bottom of page
-        // for (let i = 0; i < json.data.length; ++i) {
-        //     pieceTitles.push(json.data[i].title);   
-        // }
-        // pieceTitles.map((pieceTitle) => {
-        //     let pieceTitlesList = document.createElement('li')
-        //     pieceTitlesList.innerText = pieceTitle
-        //     document.getElementById("titles-list").appendChild(pieceTitlesList)
-        // })
-    
-        newImageIdentifier = json.data[0].image_id;
-        dateEndHolder = json.data[0].date_end
-        
-        loadNewImage();        
-
+        createArtList(json.data[0]);
+        loadOptions(json.data);
         document.getElementById("search-input").value = " "
-
-        return dateEndHolder;
-        
 })
-}
-
-
-
-console.log(dateEndHolder);
-
-function loadNewImage () {
-    let id = newImageIdentifier
-    let url = `https://www.artic.edu/iiif/2/${id}/full/843,/0/default.jpg`;
-    fetch(url)
-        .then(response => response.blob())
-        .then(data => {
-        let objectURL = URL.createObjectURL(data);
-        const image = document.getElementById("image");
-        image.setAttribute("src", objectURL);
-    });
 }
 
 //GUESSING FUNCTIONALITY AND RESPONSE
-let dateDifferenceResult;
 const form = document.getElementById("search-form");
 form.addEventListener("submit", async function(e) {
     e.preventDefault();
-    let dateEnd = dateEndHolder;
+    let dateEnd = parseInt(artworkList.artworkEndDate)
     const searchTerm = document.getElementById("search-input").value;
-    dateDifferenceResult = Math.abs(searchTerm - dateEnd);
+    let dateDifferenceResult = Math.abs(searchTerm - dateEnd);
     console.log(dateDifferenceResult);
-    showMessageToUser();
-   
+    showMessageToUser(dateDifferenceResult);
 })
 
-function showMessageToUser () {
+function showMessageToUser (difference) {
     let popup = document.getElementById("feedback-popup");
 
-    if (dateDifferenceResult < 20) {
-        popup.innerHTML = `Nice work! You're only ${dateDifferenceResult} off! <button id="close-button">Close</button>`
+    if (difference < 20) {
+        popup.innerHTML = `Nice work! You're only ${difference} off! <button id="close-button">Close</button>`
     }
-    else if (dateDifferenceResult > 20) {
+    else if (difference > 20) {
         popup.innerHTML = `Not quite there, try again. <button id="close-button">Close</button>`
     }
-    else if (dateDifferenceResult = 0) {
+    else if (difference === 0) {
         popup.innerHTML = `Amazing! Right on the money! <button id="close-button">Close</button>`
     }
     else {
@@ -193,3 +146,4 @@ revealForm.addEventListener("submit", async function(e) {
     dateDisplayListItem.innerText = dateEndHolder;
     document.getElementById("artwork-list").appendChild(dateDisplayListItem);
 })
+
