@@ -1,7 +1,7 @@
 
 Name: Phase 1 Project "GARTY" (guess that art year)
 
-Description: 
+Description & Usage:  
 This application uses the Art Institute of Chicago API to present user with a piece of art and some info about that piece of art including title, artist name, medium and place of origin. It will not reveal the date the artwork was created. 
 
 Users can use the app to guess the year the artwork was created. If they aren't able to, they can click 'Reveal' to see the Date. 
@@ -12,9 +12,6 @@ Installation:
 - Use git clone https://github.com/aMooseOnFire/phase-1-project.git 
 - Open your editor
 - Use open index.html to get the app running! 
-
-Usage:
-XX
 
 API Info: 
 
