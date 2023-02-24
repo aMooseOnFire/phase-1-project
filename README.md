@@ -1,17 +1,26 @@
 
-Phase 1 Project
+Name: Phase 1 Project "GARTY" (guess that art year)
 
-SPA that uses the Art Institute of Chicago API to present user with a piece of art. It will display certain info about that art, including an image, but it will keep the 'Date Created' field hidden. 
+Description: 
+This application uses the Art Institute of Chicago API to present user with a piece of art and some info about that piece of art including title, artist name, medium and place of origin. It will not reveal the date the artwork was created. 
 
-Upon load, the app should pull back an item and info. If it does not, click "Play Again". 
+Users can use the app to guess the year the artwork was created. If they aren't able to, they can click 'Reveal' to see the Date. 
 
-Use "Guess" to guess what year the item was created/finished in. 
-Use "Reveal" to reveal the date that the item was created finished in.
-Use "Play Again" to refresh
+Installation: 
+- Fork at git@github.com:aMooseOnFire/phase-1-project.git
+- Clone onto your local machine by clicking Code, then copying the HTTPS URL
+- Use git clone https://github.com/aMooseOnFire/phase-1-project.git 
+- Open your editor
+- Use open index.html to get the app running! 
 
-//Base API URL
+Usage:
+XX
+
+API Info: 
+
+Base API URL
 "https://api.artic.edu/api/v1/artworks"
 
-//Image API URL
+Image API URL
 https://www.artic.edu/iiif/2/{identifier}/full/843,/0/default.jpg
-... Which pulls the identifier from the 
+

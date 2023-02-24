@@ -1,15 +1,10 @@
-//document.addEventListener("DOMContentLoaded", loadImages())
-
 document.addEventListener("DOMContentLoaded", function() {
     loadImageInfo();
     document.getElementById("user-greeting").textContent = "Welcome to GARTY (Guess that Art Year)";
 });
 
-// Step 1: Function that queries ("https://api.artic.edu/api/v1/artworks"), displays Title, Medium, etc, pulls in Image ID and passes to `https://www.artic.edu/iiif/2/${imageIdentifier}/full/843,/0/default.jpg`. Step 2: This function should also be called when player clicks Play Again and it should receive a random number to in order to get new information. 
-
 const artworkList = document.getElementById("artwork-list");
 
-//DOM construction function
 function createArtList(artworkObject) {
     
     artworkList.innerHTML = " "
@@ -52,8 +47,7 @@ function loadImageInfo () {
     })
   };
 
-//LOAD OPTIONS AT BOTTOM
-//switch to forEach
+
 function loadOptions (titles) {
     for (let i = 0; i < titles.length; ++i) {
         pieceTitles.push(titles[i]);
@@ -64,7 +58,6 @@ function loadOptions (titles) {
         }
 }
 
-//IMAGE LOAD
 function loadImage (imageIdentifier) {
     let url = `https://www.artic.edu/iiif/2/${imageIdentifier}/full/843,/0/default.jpg`;
     fetch(url)
@@ -76,23 +69,19 @@ function loadImage (imageIdentifier) {
     });
 }
 
-//PLAY AGAIN FUNCTIONALITY
 let randomPage;
 document.getElementById('play-again').addEventListener("click", function(){
         loadNewInfo();
 })
 
-//FUNCTIONS TO LOAD NEW INFO AND IMAGE
 let newImageIdentifier;
 let dateEndHolder;
 function loadNewInfo () {
     let oldImage = document.getElementById("image")
     oldImage.src = "";
     randomPage = Math.random() * 9914 | 0;
-    //Reset the Titles Array
     document.getElementById("titles-list").innerHTML = " "
     pieceTitles = [];
-    //Dynamic fetch call to new page
     fetch(`https://api.artic.edu/api/v1/artworks?page=${randomPage}`)
     .then((resp) => resp.json())
     .then((json) => {
@@ -102,7 +91,7 @@ function loadNewInfo () {
 })
 }
 
-//GUESSING FUNCTIONALITY AND RESPONSE
+
 const form = document.getElementById("search-form");
 form.addEventListener("submit", async function(e) {
     e.preventDefault();
@@ -138,7 +127,6 @@ function showMessageToUser (difference) {
 }
 
 
-//REVEAL FUNCTIONALITY 
 const revealForm = document.getElementById("reveal-form");
 revealForm.addEventListener("submit", async function(e) {
     e.preventDefault();
